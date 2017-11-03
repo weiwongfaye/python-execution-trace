@@ -58,9 +58,9 @@ def record(num_executions=1):
             return f
 
         # We only support recording one fn's executions at the moment.
-        if num_fns_recorded:
-            raise ValueError('Cannot `record` more than one function at a time.')
-        num_fns_recorded += 1
+        # if num_fns_recorded:
+        #     raise ValueError('Cannot `record` more than one function at a time.')
+        # num_fns_recorded += 1
 
         source = inspect.getsource(f)
         parsed = ast.parse(strip_indent(source))
@@ -100,12 +100,13 @@ def record(num_executions=1):
         @wraps(f)
         def wrapped(*args, **kwargs):
             # Write source to file the first time we are called.
-            global first_dump_call
-            if first_dump_call:
-                dump_fn_source(file, source)
-                first_dump_call = False
+            # global first_dump_call
+            # if first_dump_call:
+            #     dump_fn_source(file, source)
+            #     first_dump_call = False
 
-            global num_recorded_executions
+            # global num_recorded_executions
+            num_recorded_executions = 0
             # Are we still recording?
             if num_recorded_executions < num_executions:
 
